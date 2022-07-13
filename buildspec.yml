@@ -1,0 +1,19 @@
+version: 0.2
+
+
+phases:
+  pre_build:
+    commands:
+     - echo Logging in to Amazon ECR...
+     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+  build:
+    commands:
+     - echo Build started on `date`
+     - echo Building the docker image...
+     - docker build -t tebex-overwolfapp1 .
+     - docker tag tebex-overwolfapp1:latest 544638122883.dkr.ecr.eu-west-2.amazonaws.com/tebex-overwolfapp1
+  post_build:
+    commands:
+     - echo Build started on `date`
+     - echo Building the docker image...
+     - docker push 544638122883.dkr.ecr.eu-west-2.amazonaws.com/tebex-overwolfapp1
